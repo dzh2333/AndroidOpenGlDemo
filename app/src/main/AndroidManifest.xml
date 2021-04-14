@@ -19,11 +19,11 @@
 
         <activity android:name=".test.GlViewTestActivity">
         </activity>
-
         <activity android:name=".draw.DrawTriangleActivity"/>
         <activity android:name=".draw.DrawLineActivity"/>
         <activity android:name=".draw.DrawPointActivity"/>
         <activity android:name=".draw.Draw3DObjectActivity"/>
+        <activity android:name=".draw.DrawFaceActivity"/>
     </application>
 
 </manifest>

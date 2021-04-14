@@ -17,12 +17,14 @@
         android:id="@+id/draw_point"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="画点"/>
+        android:text="画点"
+        android:onClick="onclick"/>
 
     <Button
         android:id="@+id/draw_line"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="画线"/>
+        android:text="画线"
+        android:onClick="onclick"/>
 
 </LinearLayout>

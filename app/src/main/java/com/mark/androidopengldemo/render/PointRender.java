@@ -12,29 +12,19 @@ import java.nio.FloatBuffer;
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
-public class TriangleRender implements GLSurfaceView.Renderer {
-
-    public native void surfaceCreated(int color);
-
-    public native void surfaceChanged(int width, int height);
-
-    public native void onDrawFrame();
+public class PointRender implements GLSurfaceView.Renderer {
 
     private static final int POSITION_COMPONENT_COUNT = 3;
 
-    private final FloatBuffer vertexBuffer;
+    private float[] points = new float[]{
+            0.0f,
+            0.5f,
+            0.0f
+    };
 
-    private final FloatBuffer colorBuffer;
-
-    private int mProgram;
-
-    /**
-     * 点的坐标
-     */
-    private float[] vertexPoints = new float[]{
-            0.0f, 1.0f, 0.0f,
-            -1.0f, -1.0f, 0.0f,
-            1.0f, -1.0f, 0.0f
+    //绿色
+    private float color[] = {
+            0.0f, 1.0f, 0.0f, 1.0f
     };
 
     /**
@@ -47,7 +37,7 @@ public class TriangleRender implements GLSurfaceView.Renderer {
                     + "out vec4 vColor;\n"
                     + "void main() { \n"
                     + "gl_Position  = vPosition;\n"
-                    + "gl_PointSize = 10.0;\n"
+                    + "gl_PointSize = 80.0;\n"
                     + "vColor = aColor;\n"
                     + "}\n";
 
@@ -60,19 +50,17 @@ public class TriangleRender implements GLSurfaceView.Renderer {
                     + "fragColor = vColor; \n"
                     + "}\n";
 
-    private float color[] = {
-            0.0f, 1.0f, 0.0f, 1.0f,
-            1.0f, 0.0f, 0.0f, 1.0f,
-            0.0f, 0.0f, 1.0f, 1.0f
-    };
+    private FloatBuffer pointBuffer;
+    private final FloatBuffer colorBuffer;
 
-    public TriangleRender() {
-        //将数据传入Native层
-        vertexBuffer = ByteBuffer.allocateDirect(vertexPoints.length * 4)
+    private int mProgram;
+
+    public PointRender(){
+        pointBuffer = ByteBuffer.allocateDirect(points.length * 4)
                 .order(ByteOrder.nativeOrder())
                 .asFloatBuffer();
-        vertexBuffer.put(vertexPoints);
-        vertexBuffer.position(0);
+        pointBuffer.put(points);
+        pointBuffer.position(0);
 
         colorBuffer = ByteBuffer.allocateDirect(color.length * 4)
                 .order(ByteOrder.nativeOrder())
@@ -83,10 +71,9 @@ public class TriangleRender implements GLSurfaceView.Renderer {
     }
 
     @Override
-    public void onSurfaceCreated(GL10 gl, EGLConfig config) {
-        //设置背景颜色
+    public void onSurfaceCreated(GL10 gl10, EGLConfig eglConfig) {
+        //灰色背景
         GLES30.glClearColor(0.5f, 0.5f, 0.5f, 0.5f);
-
         //编译
         final int vertexShaderId = ShaderHelper.compileVertexShader(vertextShader);
         final int fragmentShaderId = ShaderHelper.compileFragmentShader(fragmentShader);
@@ -97,12 +84,12 @@ public class TriangleRender implements GLSurfaceView.Renderer {
     }
 
     @Override
-    public void onSurfaceChanged(GL10 gl, int width, int height) {
+    public void onSurfaceChanged(GL10 gl10, int width, int height) {
         GLES30.glViewport(0, 0, width, height);
     }
 
     @Override
-    public void onDrawFrame(GL10 gl) {
+    public void onDrawFrame(GL10 gl10) {
         GLES30.glClear(GLES30.GL_COLOR_BUFFER_BIT);
 
         //准备坐标数据
@@ -111,10 +98,7 @@ public class TriangleRender implements GLSurfaceView.Renderer {
                 GLES30.GL_FLOAT,
                 false,
                 0,
-                vertexBuffer);
-        //启用顶点的句柄
-        GLES30.glEnableVertexAttribArray(0);
-
+                pointBuffer);
         //绘制三角形颜色
         GLES30.glEnableVertexAttribArray(1);
         GLES30.glVertexAttribPointer(1,
@@ -123,12 +107,12 @@ public class TriangleRender implements GLSurfaceView.Renderer {
                 false,
                 0,
                 colorBuffer);
-        //画三角形
-        GLES30.glDrawArrays(GLES30.GL_TRIANGLES, 0, 3);
+
+        //绘制顶点      参数:1、模式2、起点3、顶点数量
+        GLES30.glDrawArrays(GLES30.GL_POINTS, 0, 1);
 
         //禁止顶点数组的句柄
         GLES30.glDisableVertexAttribArray(0);
         GLES30.glDisableVertexAttribArray(1);
     }
-
 }

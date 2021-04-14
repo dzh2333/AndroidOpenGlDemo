@@ -4,6 +4,8 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import com.mark.androidopengldemo.draw.DrawLineActivity
+import com.mark.androidopengldemo.draw.DrawPointActivity
 import com.mark.androidopengldemo.draw.DrawTriangleActivity
 import com.mark.androidopengldemo.test.GlViewTestActivity
 import com.mark.androidopengldemo.test.MyDiyViewActivity
@@ -25,12 +27,11 @@ class MainActivity : AppCompatActivity() {
                 startActivity(object : Intent(MainActivity@this, DrawTriangleActivity::class.java){})
             }
             R.id.draw_point->{
-
+                startActivity(object : Intent(MainActivity@this, DrawPointActivity::class.java){})
             }
             R.id.draw_line->{
-
+                startActivity(object : Intent(MainActivity@this, DrawLineActivity::class.java){})
             }
-
         }
     }
 
