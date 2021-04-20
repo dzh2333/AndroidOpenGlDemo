@@ -100,6 +100,7 @@ public class PointRender implements GLSurfaceView.Renderer {
                 0,
                 pointBuffer);
         //绘制三角形颜色
+        GLES30.glEnableVertexAttribArray(0);
         GLES30.glEnableVertexAttribArray(1);
         GLES30.glVertexAttribPointer(1,
                 4,//数量为4
