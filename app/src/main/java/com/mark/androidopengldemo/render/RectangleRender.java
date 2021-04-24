@@ -2,7 +2,6 @@ package com.mark.androidopengldemo.render;
 
 import android.opengl.GLES30;
 import android.opengl.GLSurfaceView;
-import android.widget.ShareActionProvider;
 
 import com.mark.androidopengldemo.util.ShaderHelper;
 
@@ -13,19 +12,27 @@ import java.nio.FloatBuffer;
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
-public class LineRender implements GLSurfaceView.Renderer {
+public class RectangleRender implements GLSurfaceView.Renderer {
 
     private static final int POSITION_COMPONENT_COUNT = 3;
 
-    private float[] points = new float[]{
-            0.0f, 0.5f, 0.0f,
-            0.0f, 1.0f, 0.0f,
-    };
+    private final FloatBuffer vertexBuffer;
 
-    //绿色
-    private float color[] = {
-            0.0f, 1.0f, 0.0f, 1.0f,
-            0.0f, 1.0f, 0.0f, 1.0f,
+    private final FloatBuffer colorBuffer;
+
+    private int mProgram;
+
+    /**
+     * 点的坐标
+     */
+    private float[] vertexPoints = new float[]{
+            0.5f, 0.5f, 0.0f,
+            -0.5f, 0.5f, 0.0f,
+            0.5f, -0.5f, 0.0f,
+
+            0.5f, -0.5f, 0.0f,
+            -0.5f, 0.5f, 0.0f,
+            -0.5f, -0.5f, 0.0f
     };
 
     /**
@@ -38,7 +45,7 @@ public class LineRender implements GLSurfaceView.Renderer {
                     + "out vec4 vColor;\n"
                     + "void main() { \n"
                     + "gl_Position  = vPosition;\n"
-                    + "gl_PointSize = 80.0;\n"
+                    + "gl_PointSize = 10.0;\n"
                     + "vColor = aColor;\n"
                     + "}\n";
 
@@ -51,17 +58,22 @@ public class LineRender implements GLSurfaceView.Renderer {
                     + "fragColor = vColor; \n"
                     + "}\n";
 
-    private FloatBuffer pointBuffer;
-    private final FloatBuffer colorBuffer;
+    private float color[] = {
+            0.0f, 1.0f, 0.0f, 1.0f,
+            1.0f, 0.0f, 0.0f, 1.0f,
+            0.0f, 0.0f, 1.0f, 1.0f,
+            0.0f, 1.0f, 0.0f, 1.0f,
+            1.0f, 0.0f, 0.0f, 1.0f,
+            0.0f, 0.0f, 1.0f, 1.0f
+    };
 
-    private int mProgram;
-
-    public LineRender(){
-        pointBuffer = ByteBuffer.allocateDirect(points.length * 4)
+    public RectangleRender() {
+        //将数据传入Native层
+        vertexBuffer = ByteBuffer.allocateDirect(vertexPoints.length * 4)
                 .order(ByteOrder.nativeOrder())
                 .asFloatBuffer();
-        pointBuffer.put(points);
-        pointBuffer.position(0);
+        vertexBuffer.put(vertexPoints);
+        vertexBuffer.position(0);
 
         colorBuffer = ByteBuffer.allocateDirect(color.length * 4)
                 .order(ByteOrder.nativeOrder())
@@ -72,9 +84,10 @@ public class LineRender implements GLSurfaceView.Renderer {
     }
 
     @Override
-    public void onSurfaceCreated(GL10 gl10, EGLConfig eglConfig) {
-        //灰色背景
+    public void onSurfaceCreated(GL10 gl, EGLConfig config) {
+        //设置背景颜色
         GLES30.glClearColor(0.5f, 0.5f, 0.5f, 0.5f);
+
         //编译
         final int vertexShaderId = ShaderHelper.compileVertexShader(vertextShader);
         final int fragmentShaderId = ShaderHelper.compileFragmentShader(fragmentShader);
@@ -85,12 +98,12 @@ public class LineRender implements GLSurfaceView.Renderer {
     }
 
     @Override
-    public void onSurfaceChanged(GL10 gl10, int width, int height) {
+    public void onSurfaceChanged(GL10 gl, int width, int height) {
         GLES30.glViewport(0, 0, width, height);
     }
 
     @Override
-    public void onDrawFrame(GL10 gl10) {
+    public void onDrawFrame(GL10 gl) {
         GLES30.glClear(GLES30.GL_COLOR_BUFFER_BIT);
 
         //准备坐标数据
@@ -99,9 +112,11 @@ public class LineRender implements GLSurfaceView.Renderer {
                 GLES30.GL_FLOAT,
                 false,
                 0,
-                pointBuffer);
-        //启动句柄
+                vertexBuffer);
+        //启用顶点的句柄
         GLES30.glEnableVertexAttribArray(0);
+
+        //绘制三角形颜色
         GLES30.glEnableVertexAttribArray(1);
         GLES30.glVertexAttribPointer(1,
                 4,//数量为4
@@ -109,12 +124,12 @@ public class LineRender implements GLSurfaceView.Renderer {
                 false,
                 0,
                 colorBuffer);
-
-        //绘制顶点      参数:1、模式2、起点3、顶点数量
-        GLES30.glDrawArrays(GLES30.GL_LINE_STRIP, 0, 2);
+        //画2个三角形
+        GLES30.glDrawArrays(GLES30.GL_TRIANGLES, 0, 6);
 
         //禁止顶点数组的句柄
         GLES30.glDisableVertexAttribArray(0);
         GLES30.glDisableVertexAttribArray(1);
     }
+
 }

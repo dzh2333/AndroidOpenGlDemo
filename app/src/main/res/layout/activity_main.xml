@@ -27,4 +27,40 @@
         android:text="画线"
         android:onClick="onclick"/>
 
+    <Button
+        android:id="@+id/draw_rect"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="画矩形"
+        android:onClick="onclick"/>
+
+    <Button
+        android:id="@+id/draw_cir"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="画圆"
+        android:onClick="onclick"/>
+
+    <Button
+        android:id="@+id/draw_3D_cir"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="画球"
+        android:onClick="onclick"/>
+
+    <Button
+        android:id="@+id/draw_3D_cir_wenli"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="纹理"
+        android:onClick="onclick"/>
+
+    <Button
+        android:id="@+id/draw_point_eff"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="粒子特效"
+        android:onClick="onclick"/>
+
+
 </LinearLayout>

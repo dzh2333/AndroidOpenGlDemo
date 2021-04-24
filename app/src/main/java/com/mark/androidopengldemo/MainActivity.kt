@@ -4,9 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import com.mark.androidopengldemo.draw.DrawLineActivity
-import com.mark.androidopengldemo.draw.DrawPointActivity
-import com.mark.androidopengldemo.draw.DrawTriangleActivity
+import com.mark.androidopengldemo.draw.*
 import com.mark.androidopengldemo.test.GlViewTestActivity
 import com.mark.androidopengldemo.test.MyDiyViewActivity
 import kotlinx.android.synthetic.main.activity_main.*
@@ -31,6 +29,12 @@ class MainActivity : AppCompatActivity() {
             }
             R.id.draw_line->{
                 startActivity(object : Intent(MainActivity@this, DrawLineActivity::class.java){})
+            }
+            R.id.draw_rect->{
+                startActivity(object : Intent(MainActivity@this, DrawRectActivity::class.java){})
+            }
+            R.id.draw_cir->{
+                startActivity(object : Intent(MainActivity@this, DrawCircularActivity::class.java){})
             }
         }
     }

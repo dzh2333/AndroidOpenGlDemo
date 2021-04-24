@@ -24,6 +24,8 @@
         <activity android:name=".draw.DrawPointActivity"/>
         <activity android:name=".draw.Draw3DObjectActivity"/>
         <activity android:name=".draw.DrawFaceActivity"/>
+        <activity android:name=".draw.DrawRectActivity"/>
+        <activity android:name=".draw.DrawCircularActivity"/>
     </application>
 
 </manifest>
