@@ -36,6 +36,9 @@ class MainActivity : AppCompatActivity() {
             R.id.draw_cir->{
                 startActivity(object : Intent(MainActivity@this, DrawCircularActivity::class.java){})
             }
+            R.id.draw_3D_cir->{
+                startActivity(object : Intent(MainActivity@this, Draw3DObjectActivity::class.java){})
+            }
         }
     }
 
