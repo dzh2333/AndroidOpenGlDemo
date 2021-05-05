@@ -3,6 +3,7 @@
     package="com.mark.androidopengldemo">
 
     <application
+        android:name=".MainApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -26,6 +27,9 @@
         <activity android:name=".draw.DrawFaceActivity"/>
         <activity android:name=".draw.DrawRectActivity"/>
         <activity android:name=".draw.DrawCircularActivity"/>
+        <activity android:name=".draw.DrawTextureActivity"/>
+
+        <activity android:name=".render.particle.ParticleSystem"/>
     </application>
 
 </manifest>

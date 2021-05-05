@@ -6,6 +6,10 @@ import java.nio.FloatBuffer;
 
 import javax.microedition.khronos.opengles.GL10;
 
+
+/**
+ * https://blog.csdn.net/weixin_30838921/article/details/95528592
+ */
 // 计算球面顶点
 public class Sphere {
 
@@ -15,6 +19,7 @@ public class Sphere {
         float	cos, sin;
         float	r1, r2;
         float	h1, h2;
+        //幅度
         float	step = 2.0f;
         float[][] v = new float[32][3];
         ByteBuffer vbb;

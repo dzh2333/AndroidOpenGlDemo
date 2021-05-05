@@ -83,4 +83,13 @@ public class ShaderHelper {
         glGetProgramiv(programObjectId, GL_VALIDATE_STATUS, validDataStatus, 0);
         return validDataStatus[0] != 0;
     }
+
+    public static int buildProgram(String vertexShaderSource, String fragmentShaderSource){
+        int vertexShader = compileVertexShader(vertexShaderSource);
+        int fragmentShader = compileFragmentShader(fragmentShaderSource);
+
+        int program = linkProgram(vertexShader, fragmentShader);
+
+        return program;
+    }
 }

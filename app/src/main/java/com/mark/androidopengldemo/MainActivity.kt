@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import com.mark.androidopengldemo.draw.*
+import com.mark.androidopengldemo.render.particle.ParticleSystem
 import com.mark.androidopengldemo.test.GlViewTestActivity
 import com.mark.androidopengldemo.test.MyDiyViewActivity
 import kotlinx.android.synthetic.main.activity_main.*
@@ -38,6 +39,12 @@ class MainActivity : AppCompatActivity() {
             }
             R.id.draw_3D_cir->{
                 startActivity(object : Intent(MainActivity@this, Draw3DObjectActivity::class.java){})
+            }
+            R.id.draw_wenli->{
+                startActivity(object : Intent(MainActivity@this, DrawTextureActivity::class.java){})
+            }
+            R.id.draw_particle->{
+                startActivity(object : Intent(MainActivity@this, ParticleSystem::class.java){})
             }
         }
     }

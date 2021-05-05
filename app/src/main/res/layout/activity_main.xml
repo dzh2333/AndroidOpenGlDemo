@@ -50,18 +50,30 @@
         android:onClick="onclick"/>
 
     <Button
-        android:id="@+id/draw_3D_cir_wenli"
+        android:id="@+id/draw_wenli"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="纹理"
         android:onClick="onclick"/>
 
     <Button
-        android:id="@+id/draw_point_eff"
+        android:id="@+id/draw_particle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="粒子特效"
+        android:text="烟花"
         android:onClick="onclick"/>
 
+<!--    <Button-->
+<!--        android:id="@+id/draw_light"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="光影效果"-->
+<!--        android:onClick="onclick"/>-->
 
+<!--    <Button-->
+<!--        android:id="@+id/draw_camera"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="摄像头"-->
+<!--        android:onClick="onclick"/>-->
 </LinearLayout>
